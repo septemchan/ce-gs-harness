@@ -38,6 +38,7 @@ Each check has a weight reflecting its impact on Claude's effectiveness.
 **rules/**
 - Pass: `.claude/rules/` or project root `rules/` contains at least 1 `.md` file
 - Rules are always-on instructions injected into every conversation, but they don't占 CLAUDE.md 的行数。No rules means all behavioral guidance is either crammed into CLAUDE.md or absent.
+- **Version check**: If harness rules exist (workflow-map.md, tdd-plan-default.md, noise-filter.md), compare their content against the plugin source at `<skill-path>/../../rules/`. If the plugin version differs, report "harness rules 有更新可用" and ask the user whether to overwrite with the latest version.
 
 **settings.json**
 - Pass: `.claude/settings.json` or project root `settings.json` exists and is valid JSON
@@ -128,7 +129,8 @@ Map to maturity level:
    - `docs/brainstorms/`, `docs/plans/`, `docs/ideation/`
 2. Detect project type from config files:
    - `package.json`, `tsconfig.json`, `pyproject.toml`, `go.mod`, `requirements.txt`, `Cargo.toml`, `Gemfile`
-3. Based on findings:
+3. **Install harness rules**: Check whether `.claude/rules/` contains the 3 ce-gs-harness rules (workflow-map.md, tdd-plan-default.md, noise-filter.md). If any are missing, ask the user: "要把 ce-gs-harness 的 rules 复制到项目的 .claude/rules/ 吗？这样每次会话会自动加载阶段导航、TDD 纪律和输出质量控制。" If confirmed, copy from `<skill-path>/../../rules/` to `.claude/rules/`. Create the directory if needed.
+4. Based on findings:
    - Docs found → recommend `/harvest` to generate CLAUDE.md from existing context
    - No docs found → guide manual creation: create `.claude/`, write minimal CLAUDE.md (project name, detected tech stack, key commands), suggest `/product-spec` for product/app projects
 
@@ -147,7 +149,7 @@ These are observed failure patterns from testing. They are the highest-signal pa
 
 ## Important notes
 
-- This is a **diagnostic tool** — report issues, never fix them.
+- This is a **diagnostic tool** — report issues and suggest fixes. The only direct action it takes is copying harness rules to `.claude/rules/` (with user confirmation).
 - Suggest specific skills for each issue:
   - Missing/stale CLAUDE.md → `/harvest`
   - Missing Product-Spec.md → `/product-spec`
