@@ -53,5 +53,5 @@ CE 链内部（brainstorm → plan → work → review → compound）由 CE 自
 - 阶段 1：项目初始化（同 CE 链）
 - 阶段 2：构思 → `/superpowers:brainstorming` ↓
 - 阶段 3：规划 → `/superpowers:writing-plans` → 多视角审查（可选）gstack `/plan-ceo-review` `/plan-eng-review` `/plan-design-review` ↓
-- 阶段 4：执行 → `/superpowers:executing-plans`
+- 阶段 4：执行 → `/superpowers:executing-plans` ↓ 自动触发 verification-before-completion 和 requesting-code-review
 - 阶段 5、6 的 gstack 工具按需使用，同 CE 链
