@@ -38,6 +38,7 @@ For each feature, assign a status:
 
 Group findings by status and present:
 
+<example title="completeness-report">
 ```
 ## Completeness Report
 
@@ -59,6 +60,7 @@ Group findings by status and present:
 ---
 Completion: XX% (N/M features)
 ```
+</example>
 
 After the report, suggest priority order for remaining work based on dependencies and user impact.
 

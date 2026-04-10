@@ -39,6 +39,7 @@ Present all proposed changes to the user before writing.
 
 Append a timestamped entry to `Product-Changelog.md` (create the file if it doesn't exist). Format:
 
+<example title="changelog-entry">
 ```markdown
 ## YYYY-MM-DD — Sync from design docs
 
@@ -51,3 +52,4 @@ Append a timestamped entry to `Product-Changelog.md` (create the file if it does
 ### Deferred
 - Feature W: moved to v2 per plan discussion
 ```
+</example>

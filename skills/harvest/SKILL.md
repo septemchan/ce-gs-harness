@@ -38,6 +38,7 @@ Triggered when none of the design doc directories exist or they are empty.
 
 CLAUDE.md has exactly 4 sections with Chinese headings. Keep total length under 100 lines.
 
+<example title="generated-CLAUDE.md">
 ```markdown
 # 技术栈
 
@@ -55,6 +56,7 @@ CLAUDE.md has exactly 4 sections with Chinese headings. Keep total length under 
 
 (Coding conventions, naming patterns, file organization rules — sourced from design docs and existing code patterns)
 ```
+</example>
 
 End the file with a footer comment:
 

@@ -2,7 +2,7 @@
 
 ## Core Discipline
 
-**ONE question at a time.** When a user faces multiple questions simultaneously, they skip the hard ones, leaving critical gaps in the spec. Ask one question, wait for the answer, then ask the next.
+**Ask one question at a time.** When a user faces multiple questions simultaneously, they skip the hard ones, leaving critical gaps in the spec. Ask one question, wait for the answer, then ask the next.
 
 **Push to behavioral level.** If you can't draw a UI prototype from the description, the spec isn't detailed enough. Keep asking until every feature is described as: user action -> system response.
 
