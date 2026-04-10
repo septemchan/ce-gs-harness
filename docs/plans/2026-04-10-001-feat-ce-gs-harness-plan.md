@@ -118,7 +118,7 @@ ce-gs-harness/
 
 ## Implementation Units
 
-- [ ] **Unit 1: Plugin scaffold and metadata**
+- [x] **Unit 1: Plugin scaffold and metadata**
 
 **Goal:** 创建插件的基础结构，让 Claude Code 能识别和加载它。
 
@@ -152,7 +152,7 @@ ce-gs-harness/
 
 ---
 
-- [ ] **Unit 2: Rules**
+- [x] **Unit 2: Rules**
 
 **Goal:** 创建 3 条 rule 文件，提供阶段导航、TDD 纪律和输出质量控制。
 
@@ -181,7 +181,7 @@ ce-gs-harness/
 
 ---
 
-- [ ] **Unit 3: Hook infrastructure**
+- [x] **Unit 3: Hook infrastructure**
 
 **Goal:** 创建 hook 运行所需的基础设施：hooks.json 注册文件和共享工具库。
 
@@ -224,7 +224,7 @@ ce-gs-harness/
 
 ---
 
-- [ ] **Unit 4: Pre-completion hook**
+- [x] **Unit 4: Pre-completion hook**
 
 **Goal:** 创建会话结束前的提醒 hook，基于 git status 检测遗漏步骤。
 
@@ -270,7 +270,7 @@ ce-gs-harness/
 
 ---
 
-- [ ] **Unit 5: harvest skill**
+- [x] **Unit 5: harvest skill**
 
 **Goal:** 创建 harvest skill，从设计文档和项目文件生成/更新 .claude/CLAUDE.md。
 
@@ -301,7 +301,7 @@ ce-gs-harness/
 
 ---
 
-- [ ] **Unit 6: product-spec skill**
+- [x] **Unit 6: product-spec skill**
 
 **Goal:** 创建 product-spec skill，含 draft/check/sync 三个模式，维护 Product-Spec.md。
 
@@ -336,7 +336,7 @@ ce-gs-harness/
 
 ---
 
-- [ ] **Unit 7: harness-audit skill**
+- [x] **Unit 7: harness-audit skill**
 
 **Goal:** 创建 harness-audit skill，评估 .claude/ 配置健康度。
 
@@ -364,7 +364,7 @@ ce-gs-harness/
 
 ---
 
-- [ ] **Unit 8: Global configuration**
+- [x] **Unit 8: Global configuration**
 
 **Goal:** 更新全局 CLAUDE.md 和禁用 Superpowers SessionStart hook。
 
