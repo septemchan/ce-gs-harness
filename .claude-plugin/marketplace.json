@@ -1,0 +1,18 @@
+{
+  "name": "ce-gs-harness",
+  "description": "Infrastructure layer for CE + gstack",
+  "owner": {
+    "name": "SEPTEM"
+  },
+  "plugins": [
+    {
+      "name": "ce-gs-harness",
+      "description": "Infrastructure layer for CE + gstack. Provides project context maintenance, workflow navigation, TDD discipline, and session reminders.",
+      "version": "0.1.0",
+      "source": "./",
+      "author": {
+        "name": "SEPTEM"
+      }
+    }
+  ]
+}
