@@ -1,6 +1,4 @@
-# Workflow Map
-
-起点决定链路：代码项目走 CE 链，非代码项目走 Superpowers 链。
+# Workflow Map — CE 链（代码项目）
 
 ## 阶段提醒职责
 
@@ -14,7 +12,7 @@ CE 链内部（brainstorm → plan → work → review → compound）由 CE 自
 
 标注 `[hook 会提醒]` 的步骤有 pre-completion hook 兜底，但不要依赖 hook，能提前建议就提前建议。
 
-## CE 链（代码项目）
+## 阶段
 
 **阶段 1：项目初始化**
 - 没有 .claude/CLAUDE.md → `/harvest`
@@ -47,11 +45,3 @@ CE 链内部（brainstorm → plan → work → review → compound）由 CE 自
 - 修了 bug / 完成功能 → `/ce:compound`
 - 查看历史会话 → `/ce:sessions`
 - 保存/恢复工作状态 → gstack `/checkpoint`
-
-## Superpowers 链（非代码项目）
-
-- 阶段 1：项目初始化（同 CE 链）
-- 阶段 2：构思 → `/superpowers:brainstorming` ↓
-- 阶段 3：规划 → `/superpowers:writing-plans` → 多视角审查（可选）gstack `/plan-ceo-review` `/plan-eng-review` `/plan-design-review` ↓
-- 阶段 4：执行 → `/superpowers:executing-plans` ↓ 自动触发 verification-before-completion 和 requesting-code-review
-- 阶段 5、6 的 gstack 工具按需使用，同 CE 链
