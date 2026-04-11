@@ -1,4 +1,14 @@
-# Sync Mode — Design Doc to Product-Spec Synchronization
+---
+name: product-spec-sync
+description: >
+  Use when: syncing design document content to Product-Spec.md after implementation is complete.
+  Trigger on: "product-spec-sync", "/product-spec-sync", "同步产品文档", "产品同步",
+  "把设计文档同步到产品文档".
+  Do not trigger for: drafting requirements (product-spec-draft's job),
+  checking completeness (product-spec-check's job).
+---
+
+# Sync — Design Doc to Product-Spec Synchronization
 
 ## When to Use
 
@@ -10,7 +20,7 @@ Run sync **after implementation is complete**, not after brainstorm or plan crea
 
 ### Step 1: Read Current Product-Spec
 
-Read `Product-Spec.md` from the project root. If it doesn't exist, inform the user and suggest running `/product-spec draft` first. Do not proceed without a base spec — sync needs something to sync into.
+Read `Product-Spec.md` from the project root. If it doesn't exist, inform the user and suggest running `/product-spec-draft` first. Do not proceed without a base spec — sync needs something to sync into.
 
 ### Step 2: Locate Design Documents
 

@@ -1,4 +1,14 @@
-# Check Mode — Feature Completeness Audit
+---
+name: product-spec-check
+description: >
+  Use when: checking feature completeness by comparing Product-Spec.md against actual code.
+  Trigger on: "product-spec-check", "/product-spec-check", "功能完整度", "产品检查",
+  "检查实现进度", "哪些功能还没做".
+  Do not trigger for: drafting requirements (product-spec-draft's job),
+  syncing design docs (product-spec-sync's job).
+---
+
+# Check — Feature Completeness Audit
 
 ## Purpose
 
