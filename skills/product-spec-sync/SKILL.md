@@ -2,7 +2,7 @@
 name: product-spec-sync
 description: >
   Use when: syncing design document content to Product-Spec.md after implementation is complete.
-  Trigger on: "product-spec-sync", "/product-spec-sync", "同步产品文档", "产品同步",
+  Trigger on: "product-spec-sync", "/ce-gs-harness:product-spec-sync", "同步产品文档", "产品同步",
   "把设计文档同步到产品文档".
   Do not trigger for: drafting requirements (product-spec-draft's job),
   checking completeness (product-spec-check's job).
@@ -12,7 +12,7 @@ description: >
 
 ## When to Use
 
-Run sync after features have been implemented (fully or partially), not right after brainstorm or plan creation. Unexecuted plans represent intent, not reality — syncing them would pollute the spec with features that don't exist yet. Partial implementation is fine: sync adds items as `[ ]`, and the downstream `/product-spec-check` determines actual completion status.
+Run sync after features have been implemented (fully or partially), not right after brainstorm or plan creation. Unexecuted plans represent intent, not reality — syncing them would pollute the spec with features that don't exist yet. Partial implementation is fine: sync adds items as `[ ]`, and the downstream `/ce-gs-harness:product-spec-check` determines actual completion status.
 
 **Recommended order:** sync first, then check. Sync adds new features discovered in design docs as `[ ]` items. Check then scans code to update those items to `[x]`, `[~]`, or `[ ]`.
 
@@ -20,7 +20,7 @@ Run sync after features have been implemented (fully or partially), not right af
 
 ### Step 1: Read Current Product-Spec
 
-Read `Product-Spec.md` from the project root. If it doesn't exist, inform the user and suggest running `/product-spec-draft` first. Do not proceed without a base spec — sync needs something to sync into.
+Read `Product-Spec.md` from the project root. If it doesn't exist, inform the user and suggest running `/ce-gs-harness:product-spec-draft` first. Do not proceed without a base spec — sync needs something to sync into.
 
 ### Step 2: Locate Design Documents
 
@@ -44,11 +44,11 @@ From the in-scope files, read each one and extract:
 
 For each difference found:
 
-- **New feature:** Add to Product-Spec.md as `- [ ]` following the same format as `/product-spec-draft` output. If the design doc mentions specific component names, routes, or API endpoints, include them as code identifiers — e.g., `- [ ] 用户注册 (`/api/auth/register`, `RegisterForm`) (source: plans/auth-system.md)`. These identifiers are what `/product-spec-check` uses to locate corresponding code; without them, check falls back to keyword guessing with lower accuracy.
+- **New feature:** Add to Product-Spec.md as `- [ ]` following the same format as `/ce-gs-harness:product-spec-draft` output. If the design doc mentions specific component names, routes, or API endpoints, include them as code identifiers — e.g., `- [ ] 用户注册 (`/api/auth/register`, `RegisterForm`) (source: plans/auth-system.md)`. These identifiers are what `/ce-gs-harness:product-spec-check` uses to locate corresponding code; without them, check falls back to keyword guessing with lower accuracy.
 - **Modified requirement:** Update the existing entry, preserving the current `[ ]`/`[x]`/`[~]` status. Add `[变更：...]` marker describing what changed.
 - **Removed/deferred item:** Do not delete. Mark with `[延期：...]` and the reason.
 
-**Annotation markers and downstream compatibility:** `[变更：...]`、`[延期：...]`、`[存疑：...]` are inline annotations that do not affect the checkbox status (`[ ]`/`[x]`/`[~]`). `/product-spec-check` reads the checkbox to judge implementation status and treats these markers as human-readable notes.
+**Annotation markers and downstream compatibility:** `[变更：...]`、`[延期：...]`、`[存疑：...]` are inline annotations that do not affect the checkbox status (`[ ]`/`[x]`/`[~]`). `/ce-gs-harness:product-spec-check` reads the checkbox to judge implementation status and treats these markers as human-readable notes.
 
 #### Detect Contradictions
 

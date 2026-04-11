@@ -2,7 +2,7 @@
 name: product-spec-draft
 description: >
   Use when: drafting product requirements through conversation to generate or update Product-Spec.md.
-  Trigger on: "product-spec-draft", "/product-spec-draft", "产品需求", "产品文档起草",
+  Trigger on: "product-spec-draft", "/ce-gs-harness:product-spec-draft", "产品需求", "产品文档起草",
   "新产品", "我要做一个产品", "帮我理一下需求".
   Do not trigger for: checking feature completeness (product-spec-check's job),
   syncing design docs (product-spec-sync's job), technical design (CE brainstorm's job).
@@ -59,7 +59,7 @@ List all features the user mentions. For each feature, push to behavioral level:
 
 If a feature involves intelligent/generative behavior (e.g., content generation, recommendations, classification), dig deeper into: what inputs it receives, what outputs it produces, what constraints apply (tone, accuracy, safety), and what the failure modes look like. These details matter because AI-driven features are the ones most likely to behave unpredictably without clear boundaries.
 
-If the user already has technical concepts in mind (component names, route paths, API endpoints), capture them alongside the feature. These identifiers make it much easier to verify implementation later — /product-spec-check uses them to locate the corresponding code.
+If the user already has technical concepts in mind (component names, route paths, API endpoints), capture them alongside the feature. These identifiers make it much easier to verify implementation later — /ce-gs-harness:product-spec-check uses them to locate the corresponding code.
 
 Do not move on until every feature has a concrete user-action → system-response pair.
 
@@ -98,7 +98,7 @@ Update (or create) the final `Product-Spec.md` at the project root. Remove the d
 
 ### Feature checklist format
 
-Each feature in the checklist should include code identifiers when available, so /product-spec-check can locate them:
+Each feature in the checklist should include code identifiers when available, so /ce-gs-harness:product-spec-check can locate them:
 
 <example title="feature-checklist">
 - [ ] 用户注册 (`/api/auth/register`, `RegisterForm`)

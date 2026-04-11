@@ -2,7 +2,7 @@
 name: product-spec-check
 description: >
   Use when: checking feature completeness by comparing Product-Spec.md against actual code.
-  Trigger on: "product-spec-check", "/product-spec-check", "功能完整度", "产品检查",
+  Trigger on: "product-spec-check", "/ce-gs-harness:product-spec-check", "功能完整度", "产品检查",
   "检查实现进度", "哪些功能还没做".
   Do not trigger for: drafting requirements (product-spec-draft's job),
   syncing design docs (product-spec-sync's job).
@@ -16,13 +16,13 @@ Compare the Product-Spec.md checklist against actual code to determine what's be
 
 ## Before You Start
 
-If `docs/brainstorms/` or `docs/plans/` contain design documents that haven't been synced yet, suggest running `/product-spec-sync` first. Sync adds new features from design docs as `[ ]` items, then check verifies them against code. Running check without sync may miss features that were planned but not yet tracked in Product-Spec.md.
+If `docs/brainstorms/` or `docs/plans/` contain design documents that haven't been synced yet, suggest running `/ce-gs-harness:product-spec-sync` first. Sync adds new features from design docs as `[ ]` items, then check verifies them against code. Running check without sync may miss features that were planned but not yet tracked in Product-Spec.md.
 
 ## Flow
 
 ### Step 1: Extract Checklist
 
-Read `Product-Spec.md` from the project root. If it doesn't exist, inform the user and suggest running `/product-spec-draft` first — there's nothing to check without a spec.
+Read `Product-Spec.md` from the project root. If it doesn't exist, inform the user and suggest running `/ce-gs-harness:product-spec-draft` first — there's nothing to check without a spec.
 
 Extract all checklist items (`- [ ]`, `- [x]`, `- [~]`).
 

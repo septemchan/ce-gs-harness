@@ -15,9 +15,9 @@ CE 链内部（brainstorm → plan → work → review → compound）由 CE 自
 ## 阶段
 
 **阶段 1：项目初始化**
-- 没有 .claude/CLAUDE.md → `/harvest`
-- 没有 Product-Spec.md → `/product-spec-draft`
-- .claude/ 需要体检 → `/harness-audit`
+- 没有 .claude/CLAUDE.md → `/ce-gs-harness:harvest`
+- 没有 Product-Spec.md → `/ce-gs-harness:product-spec-draft`
+- .claude/ 需要体检 → `/ce-gs-harness:harness-audit`
 
 **阶段 2：构思**
 - 不知道做什么 → `/ce:ideate`（可选） → 选中想法后 → `/ce:brainstorm` ↓
@@ -32,8 +32,8 @@ CE 链内部（brainstorm → plan → work → review → compound）由 CE 自
 
 **阶段 5：质量 & 发布**
 - 代码审查 → `/ce:review` ← CE 从 /ce:work 自动触发
-- 同步设计文档 → `/product-spec-sync`
-- 产品完整度检查 → `/product-spec-check`
+- 同步设计文档 → `/ce-gs-harness:product-spec-sync`
+- 产品完整度检查 → `/ce-gs-harness:product-spec-check`
 - 前端视觉 QA → gstack `/design-review`
 - 功能 QA → gstack `/qa`
 - 安全审计 → gstack `/cso`
