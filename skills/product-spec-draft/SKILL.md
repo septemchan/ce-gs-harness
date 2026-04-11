@@ -16,6 +16,12 @@ description: >
 
 **Push to behavioral level.** A feature description is detailed enough when you could draw a UI prototype from it. Keep asking until every feature is described as: user action → system response. Vague descriptions like "user management" aren't actionable — "user clicks 'Invite', enters email, system sends invitation link and shows pending status" is.
 
+## Adapting to the User
+
+**User already has a clear picture:** If the user pastes a requirements doc, or describes most of the product upfront, don't force them through every question. Extract what's already covered, identify the gaps (behavioral detail missing? MVP boundary unclear?), and ask only about the gaps. The 7-step flow is a checklist of what the final spec needs, not a rigid interview script.
+
+**Non-linear conversation:** Users will jump around — revisiting positioning in Step 5, mentioning tech constraints in Step 3. That's fine. Track which steps have been adequately covered rather than insisting on order. If the user backtracks (e.g., "actually, let me change what this product is for"), update the earlier material and check whether downstream steps are still consistent.
+
 ## 7-Step Flow
 
 ### Step 1: Check for Existing Product-Spec.md
@@ -67,16 +73,13 @@ List exclusions clearly. This prevents scope creep and sets expectations. If the
 
 Scope exclusions are as important as scope inclusions — they give downstream implementors permission to say "no" when someone asks for a feature that was explicitly deferred.
 
-### Step 6: Tech Constraints
+### Step 6: Tech Constraints (Optional)
 
-Ask about preferences and constraints:
+Only ask about technical constraints that affect product decisions — things like "must be a WeChat Mini Program" (limits UI patterns), "must integrate with existing system X" (affects feature scope), or "offline-first" (changes user flow design). These belong in a product spec because they shape what the product can do.
 
-- Frontend framework / library
-- Backend / API layer
-- Database / storage
-- Any existing stack or tools that must be used
+Implementation choices (React vs Vue, PostgreSQL vs MySQL) belong in technical design (`/ce:plan`). If the user volunteers them, capture them, but don't ask unprompted — it pulls the conversation away from product thinking into engineering thinking.
 
-If the user doesn't have preferences, that's fine — note it as "no constraint" rather than guessing defaults.
+Skip this step entirely if no constraints surfaced during earlier steps.
 
 ### Step 7: Derive and Confirm
 
@@ -91,7 +94,7 @@ Present the derived sections to the user for confirmation before writing.
 
 ## Output
 
-Update (or create) the final `Product-Spec.md` at the project root. Remove the draft marker if present.
+Update (or create) the final `Product-Spec.md` at the project root. Remove the draft marker if present. Follow the structure in `references/template.md` — it defines the section order and format that product-spec-check and product-spec-sync depend on. Only include sections where the conversation provided enough information.
 
 ### Feature checklist format
 
