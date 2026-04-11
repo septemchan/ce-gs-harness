@@ -6,17 +6,17 @@ CE 链内部（brainstorm → plan → work → review → compound）由 CE 自
 
 - 项目初始化（阶段 1）：新项目开始工作前，检查 .claude/CLAUDE.md 和 Product-Spec.md 是否存在
 - 实现前有 UI 工作时：建议先跑 /ui-ux-pro-max
-- /ce:work 完成后：如果改动涉及设计文档，建议 /product-spec sync → /product-spec check
-- /ce:review 通过后：如果涉及 UI/页面改动，建议 gstack /qa；如果涉及安全相关文件，建议 gstack /cso
+- /ce:work 完成后：改动涉及 docs/brainstorms/ 或 docs/plans/ + 有代码改动 → 建议 /product-spec-sync，然后 /product-spec-check
+- /ce:work 完成后：代码改动 ≥3 个文件 → 建议 /product-spec-check
+- /ce:review 通过后：有 UI/页面文件改动（.html/.css/.tsx/.jsx/.vue 或 components/pages/ 目录）→ 建议 gstack /qa
+- /ce:review 通过后：改了 auth/payment/token/secret/credential/session 相关路径 → 建议 gstack /cso
 - 发布后：建议 gstack /canary 监控
-
-标注 `[hook 会提醒]` 的步骤有 pre-completion hook 兜底，但不要依赖 hook，能提前建议就提前建议。
 
 ## 阶段
 
 **阶段 1：项目初始化**
 - 没有 .claude/CLAUDE.md → `/harvest`
-- 没有 Product-Spec.md → `/product-spec`
+- 没有 Product-Spec.md → `/product-spec-draft`
 - .claude/ 需要体检 → `/harness-audit`
 
 **阶段 2：构思**
@@ -32,11 +32,11 @@ CE 链内部（brainstorm → plan → work → review → compound）由 CE 自
 
 **阶段 5：质量 & 发布**
 - 代码审查 → `/ce:review` ← CE 从 /ce:work 自动触发
-- 同步设计文档 → `/product-spec sync` ← [hook 会提醒]
-- 产品完整度检查 → `/product-spec check` ← [hook 会提醒]
+- 同步设计文档 → `/product-spec-sync`
+- 产品完整度检查 → `/product-spec-check`
 - 前端视觉 QA → gstack `/design-review`
-- 功能 QA → gstack `/qa` ← [hook 会提醒]
-- 安全审计 → gstack `/cso` ← [hook 会提醒]
+- 功能 QA → gstack `/qa`
+- 安全审计 → gstack `/cso`
 - 发布 → gstack `/ship` → `/land-and-deploy`
 - 部署后监控 → gstack `/canary`
 - 更新项目文档 → gstack `/document-release`
