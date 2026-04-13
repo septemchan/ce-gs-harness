@@ -21,3 +21,5 @@ Do not add `Execution note: test-first` to:
 - Pure documentation units (markdown, comments, READMEs)
 - Pure configuration units (dotfiles, JSON/YAML config, CI pipelines)
 - Markdown-only units (changelogs, specs, design docs)
+
+<!-- ce-gs-harness v0.8.0 -->

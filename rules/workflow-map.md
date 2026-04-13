@@ -55,3 +55,5 @@ CE 链内部（brainstorm → plan → work → review → compound）由 CE 自
 - 修了 bug / 完成功能 → `/ce:compound`
 - 查看历史会话 → `/ce:sessions`
 - 保存/恢复工作状态 → gstack `/checkpoint`
+
+<!-- ce-gs-harness v0.8.0 -->

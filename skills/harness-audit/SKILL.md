@@ -38,16 +38,11 @@ Each check has a weight reflecting its impact on Claude's effectiveness.
 **rules/**
 - Pass: `.claude/rules/` or project root `rules/` contains at least 1 `.md` file
 - Rules are always-on instructions injected into every conversation, but they don't占 CLAUDE.md 的行数。No rules means all behavioral guidance is either crammed into CLAUDE.md or absent.
-- **Version check**: If harness rules exist (workflow-map.md, tdd-plan-default.md, noise-filter.md, source-dir-convention.md, karpathy-coding-guidelines.md), compare their content against the plugin source at `<skill-path>/../../rules/`. If the plugin version differs, report "harness rules 有更新可用" and ask the user whether to overwrite with the latest version.
+- **Version check**: see Layer 1 independent check below.
 
 **settings.json**
 - Pass: `.claude/settings.json` or project root `settings.json` exists and is valid JSON
 - Controls permissions, allowed/denied commands, MCP server config. Without it every session starts from defaults, the user gets repeated approval prompts for routine operations.
-
-**hooks/**
-- Pass: `hooks.json`（project root 或 `.claude/` 下均可）exists; if it references script files, those files also exist
-- Partial: hooks.json exists but references missing scripts
-- Hooks automate pre/post actions (formatting, validation, guard rails). Missing hooks means manual repetition; broken script references cause silent failures.
 
 #### Medium (×1)
 
@@ -67,6 +62,18 @@ Each check has a weight reflecting its impact on Claude's effectiveness.
 - Pass: project has at least 1 skill (`.claude/skills/*/SKILL.md`) or 1 command (`.claude/commands/*.md`)
 - Skills and commands both serve as entry points for repeatable workflows. Having either satisfies this check; having both for the same workflow is redundant.
 
+### Harness rules version check
+
+Independent of Layer 1/Layer 2 scoring. Check every harness rule file (workflow-map.md, tdd-plan-default.md, noise-filter.md, source-dir-convention.md, karpathy-coding-guidelines.md) in the project's `.claude/rules/` or `rules/`:
+
+1. Read the last line of each file, look for `<!-- ce-gs-harness vX.Y.Z -->`
+2. Compare with the current plugin version from `<skill-path>/../../.claude-plugin/plugin.json`
+3. Report results:
+   - Version comment missing → "harness rule {file} 没有版本标记，建议重新安装"
+   - Version lower than current → "harness rules 有更新可用（本地 vX.Y.Z → 最新 vA.B.C），要更新吗？"
+   - Version matches → pass, no output
+4. If user confirms update, copy files from `<skill-path>/../../rules/` to the project's rules directory
+
 ### Layer 2: Quality checks
 
 For each component that passed Layer 1, examine the content for real problems. This layer prevents false confidence from a project where everything "exists" but nothing is well-configured.
@@ -76,17 +83,13 @@ For each component that passed Layer 1, examine the content for real problems. T
 - Check for missing deny rules — especially in projects with valuable content files that shouldn't be accidentally deleted
 - Flag if allow list is missing commonly needed commands (e.g., test runner, build tool)
 
-**hooks/ quality**
-- Verify every script file referenced in hooks.json actually exists (broken references fail silently)
-- Check that hook scripts follow error handling patterns (try/catch + process.exit(0)) if the project has established this convention
-
 **Cross-reference consistency**
 - Compare CLAUDE.md claims against actual project contents. If CLAUDE.md references specific files, directories, agents, or commands, verify they exist. Flag any phantom references.
 - If README.md exists, check whether its claims about the project (number of skills, commands, hooks, etc.) match reality. Stale README numbers are a common issue after rapid iteration.
 - If skills/ have SKILL.md descriptions that claim specific slash-command triggers (e.g., "trigger via /foo"), verify the corresponding entry exists either as a skill name or a command file.
 
 **Architecture highlights**
-- Identify and call out good design patterns: write/read separation in agents (disallowedTools), path-scoped rules, layered security (deny rules + hook guards), etc.
+- Identify and call out good design patterns: write/read separation in agents (disallowedTools), path-scoped rules, layered security (deny rules), etc.
 - Recognizing what's working well gives the user confidence and documents patterns worth preserving.
 
 ### Scoring and maturity
@@ -96,7 +99,7 @@ Layer 1 produces the base score:
 2. Divide by maximum possible (exclude conditionally skipped items)
 
 Layer 2 can downgrade the maturity level (but not upgrade it):
-- If Layer 2 finds 2+ substantive issues (redundant permissions, phantom references, broken hooks), cap the maturity at 🟠 regardless of Layer 1 score. A project where everything exists but is misconfigured isn't truly production-ready.
+- If Layer 2 finds 2+ substantive issues (redundant permissions, phantom references), cap the maturity at 🟠 regardless of Layer 1 score. A project where everything exists but is misconfigured isn't truly production-ready.
 
 Map to maturity level:
 
@@ -129,7 +132,7 @@ Map to maturity level:
    - `docs/brainstorms/`, `docs/plans/`, `docs/ideation/`
 2. Detect project type from config files:
    - `package.json`, `tsconfig.json`, `pyproject.toml`, `go.mod`, `requirements.txt`, `Cargo.toml`, `Gemfile`
-3. **Install harness rules**: Check whether `.claude/rules/` contains the 5 harness rules (workflow-map.md, tdd-plan-default.md, noise-filter.md, source-dir-convention.md, karpathy-coding-guidelines.md). If any are missing, ask the user: "要安装 harness rules 吗？包含阶段导航、TDD 纪律、输出质量控制、源代码目录约定和 Karpathy 编码准则。" If confirmed, copy from `<skill-path>/../../rules/` to `.claude/rules/`. Create the directory if needed.
+3. **Install harness rules**: Check whether `.claude/rules/` contains the 5 harness rules (workflow-map.md, tdd-plan-default.md, noise-filter.md, source-dir-convention.md, karpathy-coding-guidelines.md). If any are missing, ask the user: "要安装 harness rules 吗？包含阶段导航、TDD 纪律、输出质量控制、源代码目录约定和 Karpathy 编码准则。" If confirmed, copy from `<skill-path>/../../rules/` to `.claude/rules/`. Create the directory if needed. Each copied file already contains a `<!-- ce-gs-harness vX.Y.Z -->` version comment at the end — do not strip it. If a file already exists and has an older version comment, overwrite the entire file to get the latest version.
 4. Based on findings:
    - Docs found → recommend `/ce-gs-harness:harvest` to generate CLAUDE.md from existing context
    - No docs found → guide manual creation: create `.claude/`, write minimal CLAUDE.md (project name, detected tech stack, key commands), suggest `/ce-gs-harness:product-spec-draft` for product/app projects
@@ -142,7 +145,7 @@ These are observed failure patterns from testing. They are the highest-signal pa
 
 - **Layer 2 gets skipped.** The model tends to finish the Layer 1 checklist and treat it as complete. Layer 1 is the easy part; Layer 2 (quality + cross-references) is where the real value is. If you find yourself outputting a score after Layer 1 and moving to suggestions, stop — you haven't done Layer 2 yet.
 - **100% Layer 1 score needs more scrutiny, not less.** A project where every component exists is exactly the project where misconfiguration hides. The sps-harness test case scored 100% on Layer 1 but had 4 stale README claims. Treat a perfect Layer 1 score as a trigger to dig deeper in Layer 2.
-- **README claims drift fast.** After rapid iteration (adding hooks, agents, commands), README component counts go stale within days. Always cross-check README numbers against actual file counts.
+- **README claims drift fast.** After rapid iteration (adding agents, commands, skills), README component counts go stale within days. Always cross-check README numbers against actual file counts.
 - **Mixed Chinese/English content freshness is tricky.** When CLAUDE.md uses Chinese terms for tech (e.g., "技术栈" instead of "tech stack"), keyword matching against English config files (package.json) can miss valid references. Match on the underlying tech names, not the surrounding language.
 
 ---
@@ -155,7 +158,6 @@ These are observed failure patterns from testing. They are the highest-signal pa
   - Missing Product-Spec.md → `/ce-gs-harness:product-spec-draft`
   - Missing rules/ → manual creation or `/ce-gs-harness:harvest`
   - Missing settings.json → `/update-config`
-  - Missing/broken hooks → manual creation (describe what hooks could automate for this project)
   - No workflow entry points → suggest creating a skill if the project has repeatable workflows
 - Keep output concise and actionable. No walls of text.
 - Layer 2 is what makes this audit genuinely useful. Without it, the audit is just a file-existence checklist that gives false confidence. Spend the majority of your analysis effort on Layer 2.

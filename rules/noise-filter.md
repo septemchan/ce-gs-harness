@@ -17,3 +17,5 @@ Report only findings with an objective correctness dimension. Style opinions wit
 - **Critical** (must fix): Bugs, security issues, data loss risks, broken functionality
 - **Important** (should fix): Performance problems, missing error handling, API contract violations
 - **Suggestion** (nice to have): Readability improvements, minor refactors, test coverage gaps
+
+<!-- ce-gs-harness v0.8.0 -->

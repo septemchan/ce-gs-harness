@@ -16,3 +16,5 @@
 
 - 单端项目（只有一套代码，不存在多端分组的需求）
 - 框架已约定目录结构的项目（如 Next.js monorepo 用 Turborepo 自带约定）
+
+<!-- ce-gs-harness v0.8.0 -->
