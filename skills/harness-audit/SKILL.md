@@ -64,15 +64,17 @@ Each check has a weight reflecting its impact on Claude's effectiveness.
 
 ### Harness rules version check
 
-Independent of Layer 1/Layer 2 scoring. Check every harness rule file (workflow-map.md, tdd-plan-default.md, noise-filter.md, source-dir-convention.md, karpathy-coding-guidelines.md) in the project's `.claude/rules/` or `rules/`:
+Independent of Layer 1/Layer 2 scoring. List all expected harness rule files from `<skill-path>/../../rules/` (the plugin source), then check the project's `.claude/rules/` or `rules/`:
 
-1. Read the last line of each file, look for `<!-- ce-gs-harness vX.Y.Z -->`
-2. Compare with the current plugin version from `<skill-path>/../../.claude-plugin/plugin.json`
-3. Report results:
+1. **Completeness check**: for each expected file, check if it exists in the project. Missing files → "harness rule {file} 缺失，要安装吗？"
+2. **Version check**: for each existing file, read the last line, look for `<!-- ce-gs-harness vX.Y.Z -->`
+3. Compare with the current plugin version from `<skill-path>/../../.claude-plugin/plugin.json`
+4. Report results:
+   - File missing → "harness rule {file} 缺失，要安装吗？"
    - Version comment missing → "harness rule {file} 没有版本标记，建议重新安装"
    - Version lower than current → "harness rules 有更新可用（本地 vX.Y.Z → 最新 vA.B.C），要更新吗？"
    - Version matches → pass, no output
-4. If user confirms update, copy files from `<skill-path>/../../rules/` to the project's rules directory
+5. If user confirms, copy missing or outdated files from `<skill-path>/../../rules/` to the project's rules directory
 
 ### Layer 2: Quality checks
 
