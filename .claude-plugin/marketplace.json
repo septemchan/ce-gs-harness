@@ -8,7 +8,7 @@
     {
       "name": "ce-gs-harness",
       "description": "Infrastructure layer for CE + gstack. Provides project context maintenance, workflow navigation, TDD discipline, and session reminders.",
-      "version": "0.8.0",
+      "version": "0.8.1",
       "source": "./",
       "author": {
         "name": "SEPTEM"
