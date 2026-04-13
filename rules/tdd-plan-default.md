@@ -1,6 +1,6 @@
 # TDD Plan Default
 
-When running CE `/ce:plan`, add `Execution note: test-first` to every implementation unit.
+When writing a plan with CE `/ce:plan`, you must add `Execution note: test-first` to every implementation unit that involves code changes. This is a hard requirement, not a suggestion. Check each unit before finalizing the plan — if it creates or modifies code files (not markdown/config), it needs this note.
 
 ## Why
 
@@ -22,4 +22,4 @@ Do not add `Execution note: test-first` to:
 - Pure configuration units (dotfiles, JSON/YAML config, CI pipelines)
 - Markdown-only units (changelogs, specs, design docs)
 
-<!-- ce-gs-harness v0.8.0 -->
+<!-- ce-gs-harness v0.9.0 -->

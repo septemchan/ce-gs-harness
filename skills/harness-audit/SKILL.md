@@ -62,6 +62,12 @@ Each check has a weight reflecting its impact on Claude's effectiveness.
 - Pass: project has at least 1 skill (`.claude/skills/*/SKILL.md`) or 1 command (`.claude/commands/*.md`)
 - Skills and commands both serve as entry points for repeatable workflows. Having either satisfies this check; having both for the same workflow is redundant.
 
+**Design spec file** _(conditional — skip for non-frontend projects)_
+- Detection: check package.json `dependencies` or `devDependencies` for react/vue/svelte/next/nuxt/angular 等常见前端框架, or presence of frontend config files (`tailwind.config.*`, `postcss.config.*`, `vite.config.*`, `next.config.*` etc.)
+- Search path (priority order): `DESIGN.md` in project root → `design-system/*/MASTER.md` (/ui-ux-pro-max output)
+- Pass: any design spec file found at the above paths
+- Frontend projects without a design spec file will produce inconsistent AI-generated UI — colors, typography, and spacing drift randomly across pages.
+
 ### Harness rules version check
 
 Independent of Layer 1/Layer 2 scoring. List all expected harness rule files from `<skill-path>/../../rules/` (the plugin source), then check the project's `.claude/rules/` or `rules/`:
@@ -161,5 +167,6 @@ These are observed failure patterns from testing. They are the highest-signal pa
   - Missing rules/ → manual creation or `/ce-gs-harness:harvest`
   - Missing settings.json → `/update-config`
   - No workflow entry points → suggest creating a skill if the project has repeatable workflows
+  - Missing design spec (frontend projects) → `/ui-ux-pro-max`
 - Keep output concise and actionable. No walls of text.
 - Layer 2 is what makes this audit genuinely useful. Without it, the audit is just a file-existence checklist that gives false confidence. Spend the majority of your analysis effort on Layer 2.
